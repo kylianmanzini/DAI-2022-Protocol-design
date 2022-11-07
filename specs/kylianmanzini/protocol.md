@@ -41,6 +41,7 @@ Error handling
     401 - UKNOWNOP
     402 - EXPECTCALC
     601 - DIV0
+    602 - INPUT2BIG
 
 Extensibility
 

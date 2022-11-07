@@ -31,8 +31,9 @@ public class Server {
      * @return result of operation or "WRONGSYNTAX" on error or "DIV0" on div by 0
      */
     private String caluclate(String operation) {
-        String wrongOp = "WRONGSYNTAX";
-        String div0 = "DIV0";
+        String wrongOp = "400 - WRONGSYNTAX";
+        String div0 = "601 - DIV0";
+        String wrongNum = "602 - INPUT2BIG";
         if (operation.length() < 3)
             return wrongOp;
 
@@ -50,20 +51,25 @@ public class Server {
 
         String int1Str = operation.substring(0, operation.indexOf(operator));
         String int2Str = operation.substring(operation.indexOf(operator) + 1);
-        int int1 = Integer.parseInt(int1Str);
-        int int2 = Integer.parseInt(int2Str);
-
+        long int1 = 0;
+        long int2 = 0;
+        try {
+            int1 = Long.parseLong(int1Str);
+            int2 = Long.parseLong(int2Str);
+        } catch (NumberFormatException e){
+            return wrongNum;
+        }
         if (int2 == 0)
             return div0;
 
         if (operator == OP[0])
-            return Integer.toString((int1 + int2));
+            return Long.toString((int1 + int2));
         if (operator == OP[1])
-            return Integer.toString((int1 - int2));
+            return Long.toString((int1 - int2));
         if (operator == OP[2])
-            return Integer.toString((int1 * int2));
+            return Long.toString((int1 * int2));
         if (operator == OP[3])
-            return Integer.toString((int1 / int2));
+            return Long.toString((int1 / int2));
 
         return wrongOp;
     }
@@ -128,6 +134,8 @@ public class Server {
                             out.write("ERROR 402 EXPECTCALC END\n");
                             out.flush();
                         }
+                        out.write("QUIT END\n");
+                        out.flush();
                         break;
                     }
                 }
