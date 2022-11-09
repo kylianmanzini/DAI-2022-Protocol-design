@@ -8,7 +8,7 @@ What transport protocol do we use?
 How does the client find the server (addresses and ports)?
     Ip address and the port 12345
 Who speaks first?
-    Serveur
+    Server
 Who closes the connection and when?
     Server, when sending result or error
 
